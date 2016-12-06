@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <link rel='stylesheet' href='lib/fullcalendar-3.1.0/fullcalendar.css' />
+    <script src='lib/fullcalendar-3.1.0/lib/jquery.min.js'></script>
+    <script src='lib/fullcalendar-3.1.0/lib/moment.min.js'></script>
+    <script src='lib/fullcalendar-3.1.0/fullcalendar.js'></script>
+
+    <script src="js/app.js"></script>
+
+    <title>Ahoy</title>
+</head>
+<body>
+    <nav>
+        <a href="#" id="account-link">Konto</a>
+        <a href="#" id="calendar-link">Kalender</a>
+        <a href="#" id="boat-link">Schiffe</a>
+    </nav>
+    <main>
+
+        <!-- login screen -->
+        <section id="login-content">
+            <img id="login_logo" src="ship_wheel.png">
+            <br><br>
+            <p>Benutzername:</p>
+            <input type="text" id="login_username" value="Hans">
+            <br><br>
+            <p>Passwort:</p>
+            <input type="text" id="login_password" value="*****">
+            <br><br>
+            <input type="radio" id="login_saveUsername"><label for="login_saveUsername">Benutzername speichern</label>
+            <br><br>
+            <button type="button" id="login_loginBtn">Login</button>
+            <br><br>
+            <a href="#" id="login_newAccountDialog">neues Konto</a>
+        </section>
+
+        <!-- account -->
+        <section id="account-content">
+            <section id="left">
+                <p>Vorname:</p>
+                <input type="text" id="account_firstName" value="Hans">
+                <br><br>
+                <p>Name:</p>
+                <input type="text" id="account_lastName" value="Muster">
+                <br><br>
+                <p>Adresse:</p>
+                <input type="text" id="account_address" value="Musterweg 42">
+                <br><br>
+                <p>Postleitzahl:</p>
+                <input type="text" id="account_plz" value="4242">
+                <br><br>
+                <p>Email:</p>
+                <input type="text" id="account_email" value="hans.muster@fhnw.ch">
+                <br><br>
+            </section>
+            <section id="right">
+                <p>Benutzername:</p>
+                <input type="text" id="account_username" value="Hans">
+                <br><br>
+                <p>Aktuelles Passwort:</p>
+                <input type="text" id="account_currentPw" value="Muster">
+                <br><br>
+                <p>Neues Passwort:</p>
+                <input type="text" id="account_newPw" value="Musterweg 42">
+                <br><br>
+                <p>Neues Passwort bestätigen:</p>
+                <input type="text" id="account_confirmPw" value="4242">
+                <br><br>
+            </section>
+            <button id="account_saveBtn">speichern</button>
+        </section>
+
+        <!-- calendar -->
+        <section id="calendar-content"></section>
+            <div id='calendar'></div>
+        <!-- boats -->
+        <section id="boat-content"></section>
+
+    </main>
+</body>
+</html>
