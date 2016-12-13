@@ -24,61 +24,74 @@
         <!-- login screen -->
         <section id="login-content">
             <img id="login_logo" src="ship_wheel.png">
-            <br><br>
             <p>Benutzername:</p>
-            <input type="text" id="login_username" value="Hans">
-            <br><br>
+            <input type="text" id="login_username" title="login_username" value="Hans">
             <p>Passwort:</p>
-            <input type="text" id="login_password" value="*****">
-            <br><br>
+            <input type="text" id="login_password" title="login_password" value="*****">
             <input type="radio" id="login_saveUsername"><label for="login_saveUsername">Benutzername speichern</label>
-            <br><br>
             <button type="button" id="login_loginBtn">Login</button>
-            <br><br>
             <a href="#" id="login_newAccountDialog">neues Konto</a>
         </section>
 
         <!-- account -->
         <section id="account-content">
-            <section id="left">
+            <aside id="account_left">
                 <p>Vorname:</p>
-                <input type="text" id="account_firstName" value="Hans">
-                <br><br>
+                <input type="text" id="account_firstName" title="account_firstName" value="Hans">
                 <p>Name:</p>
-                <input type="text" id="account_lastName" value="Muster">
-                <br><br>
+                <input type="text" id="account_lastName" title="account_lastName" value="Muster">
                 <p>Adresse:</p>
-                <input type="text" id="account_address" value="Musterweg 42">
-                <br><br>
+                <input type="text" id="account_address" title="account_address" value="Musterweg 42">
                 <p>Postleitzahl:</p>
-                <input type="text" id="account_plz" value="4242">
-                <br><br>
+                <input type="text" id="account_plz" title="account_plz" value="4242">
                 <p>Email:</p>
-                <input type="text" id="account_email" value="hans.muster@fhnw.ch">
-                <br><br>
-            </section>
-            <section id="right">
+                <input type="text" id="account_email" title="account_email" value="hans.muster@fhnw.ch">
+            </aside>
+            <aside id="account_right">
                 <p>Benutzername:</p>
-                <input type="text" id="account_username" value="Hans">
-                <br><br>
+                <input type="text" id="account_username" title="account_username" value="Hans">
                 <p>Aktuelles Passwort:</p>
-                <input type="text" id="account_currentPw" value="Muster">
-                <br><br>
+                <input type="text" id="account_currentPw" title="account_currentPw" value="Muster">
                 <p>Neues Passwort:</p>
-                <input type="text" id="account_newPw" value="Musterweg 42">
-                <br><br>
+                <input type="text" id="account_newPw" title="account_newPw" value="Musterweg 42">
                 <p>Neues Passwort bestätigen:</p>
-                <input type="text" id="account_confirmPw" value="4242">
-                <br><br>
-            </section>
+                <input type="text" id="account_confirmPw" title="account_confirmPw" value="4242">
+            </aside>
             <button id="account_saveBtn">speichern</button>
         </section>
 
         <!-- calendar -->
-        <section id="calendar-content"></section>
+        <section id="calendar-content">
+            <select id ="calendar_dropdown" title="calendar_dropdown">
+                <option value="boat1">Schiff1</option>
+                <option value="boat2">Schiff2</option>
+            </select>
+            <section id="calendar_weatherForecast"></section>
             <div id='calendar'></div>
+            <h1>Neue Reservation</h1>
+            <p>Datum:</p>
+            <input type="text" id="calendar_datum" title="calendar_datum" value="dd-mm-yyyy">
+            <p>Von:</p>
+            <input type="text" id="calendar_fromTime" title="calendar_fromTime" value="hh:mm">
+            <p>Bis:</p>
+            <input type="text" id="calendar_toTime" title="calendar_toTime" value="hh:mm">
+            <button id="calendar_saveBtn">reservieren</button>
+        </section>
+
         <!-- boats -->
-        <section id="boat-content"></section>
+        <section id="boat-content">
+            <section id="boat_tableContent"></section>
+            <p>Schiffsname:</p>
+            <input type="text" id="boat_boatname" title="boat_boatname" value="Max">
+            <p>Typ:</p>
+            <input type="text" id="boat_type" title="boat_type" value="ST 19">
+            <p>Standort:</p>
+            <input type="text" id="boat_place" title="boat_place" value="Beinwil">
+            <p>Anlegeplatz:</p>
+            <input type="text" id="boat_location" title="boat_location" value="15">
+            <button id="boat_addBtn">hinzufügen</button>
+        </section>
+
 
     </main>
 </body>
