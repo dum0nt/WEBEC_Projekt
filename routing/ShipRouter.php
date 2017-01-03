@@ -1,23 +1,28 @@
 <?php
 
-require 'helper/DbConnection.php';
+$app->get('/ships', function($request, $response) use ($shipDao) {
+    return $response->withJson($shipDao->getAllShips());
+});
 
-use function database\getDBConnection as openDatabase;
+$app->post('/ships', function($request, $response) use ($shipDao) {
+    $json = $request->getParsedBody();
+    $shipName = $json['shipName'];
+    $shipType = $json['shipType'];
+    $berthId = $json['berthId'];
 
-function getShips($db) {
-    $selectShips = $db->prepare('SELECT * FROM ships');
-
-    if ($selectShips->execute()) {
-        $ships = $selectShips->fetchAll(PDO::FETCH_ASSOC);
-        return $ships;
+    $shipId = $shipDao->createShip($shipName, $shipType, $berthId);
+    if ($shipId == false) {
+        return $response->withStatus(400);
     } else {
-        exit("Something went wrong.");
+        $json['shipId'] = $shipId;
+        return $response->withJson($json, 201);
     }
-}
+});
 
-$db = openDatabase('mysql:host=localhost:3306;dbname=ahoy;charset=utf8', 'root', '');
-$ships = getShips($db);
-$db = null;
-
-header('Content-Type: application/json; charset=utf-8;');
-echo(json_encode($ships));
+$app->delete('/ships/{id}', function($request, $response, $args) use ($shipDao) {
+    if ($shipDao->deleteShip($args['id'])) {
+        return $response->withStatus(204);
+    } else {
+        return $response->withStatus(404);
+    }
+});
