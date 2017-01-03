@@ -3,21 +3,21 @@
 require_once 'vendor/autoload.php';
 
 $app = new \Slim\App();
-$app->get('/', function($request, $response) {
-    $salt = uniqid();
-    $password = 'password';
-    $answer = 'Salt: ' . $salt . "\n" . 'Password: ' . $password . "\n" . 'Password hash: ' . md5($password . $salt);
-    return $response->write($answer);
-});
-
-$app->get('/hello', function($request, $response) {
-    $params = $request->getQueryParams();
-    if (isset($params['name'])) {
-        return $response->write("Hello " . $params['name']);
-    } else {
-        return $response->write("Hello World");
-    }
-});
+//$app->get('/', function($request, $response) {
+//    $salt = uniqid();
+//    $password = 'password';
+//    $answer = 'Salt: ' . $salt . "\n" . 'Password: ' . $password . "\n" . 'Password hash: ' . md5($password . $salt);
+//    return $response->write($answer);
+//});
+//
+//$app->get('/hello', function($request, $response) {
+//    $params = $request->getQueryParams();
+//    if (isset($params['name'])) {
+//        return $response->write("Hello " . $params['name']);
+//    } else {
+//        return $response->write("Hello World");
+//    }
+//});
 
 require_once 'helper/BerthDAO.php';
 require_once 'helper/BerthTownDAO.php';

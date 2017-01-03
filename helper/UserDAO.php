@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Simon
- * Date: 30.12.2016
- * Time: 14:58
- */
 
 namespace dao;
 
@@ -69,7 +63,11 @@ class UserDAO
             return false;
         }
 
-        return $selectUser->fetch(PDO::FETCH_ASSOC);
+        $user = $selectUser->fetch(PDO::FETCH_ASSOC);
+        $user['UserId'] = intval($user['UserId']);
+        $user['ZIP'] = intval($user['ZIP']);
+
+        return $user;
     }
 
     /**
@@ -133,6 +131,6 @@ class UserDAO
             throw new Exception("There appears to be a problem with the database connection");
         }
 
-        return count($count->rowCount()) > 0;
+        return $count->rowCount() > 0;
     }
 }

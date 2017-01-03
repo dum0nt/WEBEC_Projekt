@@ -18,7 +18,14 @@ class BerthDAO
         $selectBerth = $db->prepare('SELECT * FROM berths');
 
         if ($selectBerth->execute()) {
-            return $selectBerth->fetchAll(PDO::FETCH_ASSOC);
+            return array_map(function($berth) {
+                $ber = array();
+                $ber['BerthId'] = intval($berth['BerthId']);
+                $ber['BerthNumber'] = intval($berth['BerthNumber']);
+                $ber['IsOccupied'] = boolval($berth['IsOccupied']);
+                $ber['BerthTownId'] = intval($berth['BerthTownId']);
+                return $ber;
+            }, $selectBerth->fetchAll(PDO::FETCH_ASSOC));
         } else {
             throw new Exception("There appears to be a problem with the database connection");
         }

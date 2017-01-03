@@ -18,7 +18,16 @@ class ReservationDAO
         $selectReservations = $db->prepare('SELECT * FROM reservations');
 
         if ($selectReservations->execute()) {
-            return $selectReservations->fetchAll(PDO::FETCH_ASSOC);
+            $reservations = array_map(function($reservation) {
+                $res = array();
+                $res['ReservationId'] = intval($reservation['ReservationId']);
+                $res['StartTime'] = $reservation['StartTime'];
+                $res['EndTime'] = $reservation['EndTime'];
+                $res['ShipId'] = intval($reservation['ShipId']);
+                $res['UserId'] = intval($reservation['UserId']);
+                return $res;
+            }, $selectReservations->fetchAll(PDO::FETCH_ASSOC));
+            return $reservations;
         } else {
             throw new Exception("There appears to be a problem with the database connection");
         }
@@ -71,6 +80,6 @@ class ReservationDAO
             throw new Exception("There appears to be a problem with the database connection");
         }
 
-        return count($count->rowCount()) > 0;
+        return $count->rowCount() > 0;
     }
 }

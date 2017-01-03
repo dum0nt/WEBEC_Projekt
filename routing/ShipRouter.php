@@ -1,28 +1,30 @@
 <?php
 
 $app->get('/ships', function($request, $response) use ($shipDao) {
-    return $response->withJson($shipDao->getAllShips());
+    return $response->withJson($shipDao->getAllShips(), 200);
 });
 
 $app->post('/ships', function($request, $response) use ($shipDao) {
-    $json = $request->getParsedBody();
-    $shipName = $json['shipName'];
-    $shipType = $json['shipType'];
-    $berthId = $json['berthId'];
+    $jsonReq = $request->getParsedBody();
 
-    $shipId = $shipDao->createShip($shipName, $shipType, $berthId);
+    $shipId = $shipDao->createShip($jsonReq);
     if ($shipId == false) {
         return $response->withStatus(400);
     } else {
-        $json['shipId'] = $shipId;
-        return $response->withJson($json, 201);
+        $jsonReq['shipId'] = $shipId;
+        return $response->withJson($jsonReq, 201);
     }
 });
 
 $app->delete('/ships/{id}', function($request, $response, $args) use ($shipDao) {
-    if ($shipDao->deleteShip($args['id'])) {
+    $shipId = intval($args['id']);
+    if (!$shipDao->exists($shipId)) {
+        return $response->withJson(json_encode(false), 404);
+    }
+
+    if ($shipDao->deleteShip($shipId)) {
         return $response->withStatus(204);
     } else {
-        return $response->withStatus(404);
+        return $response->withJson(json_encode(false), 500);
     }
 });
