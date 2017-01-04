@@ -3,6 +3,7 @@
 require_once 'vendor/autoload.php';
 
 $app = new \Slim\App();
+$view = new \Slim\Views\PhpRenderer('./template/html');
 //$app->get('/', function($request, $response) {
 //    $salt = uniqid();
 //    $password = 'password';
@@ -36,5 +37,9 @@ require_once 'routing/BerthTownRouter.php';
 require_once 'routing/ReservationRouter.php';
 require_once 'routing/ShipRouter.php';
 require_once 'routing/UserRouter.php';
+
+$app->get('/', function($request, $response) use ($app, $view) {
+    return $view->render($response, '/index.html');
+});
 
 $app->run();
