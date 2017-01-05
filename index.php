@@ -4,20 +4,9 @@ require_once 'vendor/autoload.php';
 
 $app = new \Slim\App();
 $view = new \Slim\Views\PhpRenderer('./template/html');
+
 //$app->get('/', function($request, $response) {
-//    $salt = uniqid();
-//    $password = 'password';
-//    $answer = 'Salt: ' . $salt . "\n" . 'Password: ' . $password . "\n" . 'Password hash: ' . md5($password . $salt);
-//    return $response->write($answer);
-//});
-//
-//$app->get('/hello', function($request, $response) {
-//    $params = $request->getQueryParams();
-//    if (isset($params['name'])) {
-//        return $response->write("Hello " . $params['name']);
-//    } else {
-//        return $response->write("Hello World");
-//    }
+//   return $response->write('Hello World');
 //});
 
 require_once 'helper/BerthDAO.php';
@@ -40,6 +29,10 @@ require_once 'routing/UserRouter.php';
 
 $app->get('/', function($request, $response) use ($app, $view) {
     return $view->render($response, '/index.html');
+});
+
+$app->get('/login', function($request, $response) use ($app, $view) {
+    return $view->render($response, '/login.html');
 });
 
 $app->run();
