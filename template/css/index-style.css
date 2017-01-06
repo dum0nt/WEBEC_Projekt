@@ -1,0 +1,127 @@
+* {
+    font-family: Arial;
+    font-size: 15px;
+    margin: 0 auto;
+}
+
+button {
+    background-color: #008cba;
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+button.secondary {
+    background-color: #ddd;
+    color: #666;
+}
+
+h1 {
+    font-size: 20px;
+}
+
+input, select {
+    padding: 5px 5px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input, input[type=password] {
+    width: 100%;
+}
+
+input.error {
+    background-color: pink;
+    border: 1px solid red;
+}
+
+select {
+    width: 15%;
+    min-width: 150px;
+}
+
+.shipCreation select {
+    width: 100%;
+}
+
+main {
+    margin: 0 30px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0 0 30px 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f3f3f3;
+    border: 1px solid #e7e7e7;
+}
+
+nav li {
+    float: left;
+    border-right:1px solid #bbb;
+}
+
+nav li:last-child {
+    border-right: none;
+}
+
+nav li a {
+    color: #666;
+    display: block;
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;
+}
+
+nav li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+nav .active a {
+    background-color: #008cba;
+    color: white;
+}
+
+table {
+    width: 40%;
+}
+
+td.label-td {
+    width: 25%;
+    min-width: 200px;
+}
+
+td.input-td {
+    width: 75%;
+    min-width: 400px;
+}
+
+#account-content button {
+    display: block;
+    width: 200px;
+}
+
+table.shiplist {
+    border-collapse: collapse;
+    margin: 0 auto 30px auto;
+    width: 40%;
+    min-width: 600px;
+}
+
+.shiplist th, .shiplist td {
+    text-align: left;
+    padding: 8px;
+}
+
+.shiplist tr:nth-child(even){background-color: #f2f2f2}
+
+.shiplist th {
+    background-color: #008cba;
+    color: white;
+}

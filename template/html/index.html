@@ -2,81 +2,262 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="./template/css/style.css">
+
+    <!-- css linking -->
+    <link rel="stylesheet" type="text/css" href="./template/css/index-style.css">
     <link rel='stylesheet' href='./template/lib/fullcalendar-3.1.0/fullcalendar.min.css' />
 
-    <script src='./template/lib/fullcalendar-3.1.0/lib/jquery.min.js'></script>
-    <script src='./template/lib/fullcalendar-3.1.0/lib/moment.min.js'></script>
+    <!-- js linking -->
+    <script src="./template/lib/jquery-2.1.4.min.js"></script>
+    <script src="./template/lib/moment.min.js"></script>
     <script src='./template/lib/fullcalendar-3.1.0/fullcalendar.min.js'></script>
-
+    <script src='./template/lib/fullcalendar-3.1.0/locale/de.js'></script>
     <script src="./template/js/app.js"></script>
+    <script src="./template/js/index.js"></script>
 
     <title>Ahoy</title>
 </head>
 <body>
     <nav>
-        <a href="#" id="account-link">Konto</a>
-        <a href="#" id="calendar-link">Kalender</a>
-        <a href="#" id="boat-link">Schiffe</a>
+        <ul>
+            <li id="account-navlink"><a href="#" onclick="showAccount()">Konto</a></li>
+            <li id="calendar-navlink"><a href="#" onclick="showCalendar()">Kalender</a></li>
+            <li id="ship-navlink"><a href="#" onclick="showShips()">Schiffe</a></li>
+            <li id="logout-navlink" style="float:right"><a href="#" onclick="logout()">Logout</a></li>
+        </ul>
     </nav>
     <main>
-
-        <!-- login screen -->
-        <section id="login-content">
-            <img id="login_logo" src="./template/res/ship_wheel.png">
-            <form>
-                <label for="login_username">Benutzername:</label><input type="text" id="login_username" title="login_username" value="Hans"><br>
-                <label for="login_password">Passwort:</label><input type="text" id="login_password" title="login_password" value="*****"><br>
-                <input type="radio" id="login_saveUsername"><label for="login_saveUsername">Benutzername speichern</label><br>
-                <button type="button" id="login_loginBtn">Login</button><br>
-                <a href="#" id="login_newAccountDialog">neues Konto</a>
-            </form>
-        </section>
-
         <!-- account -->
         <section id="account-content">
-            <aside id="account_left">
-                <label for="account_firstName">Vorname:</label><input type="text" id="account_firstName" title="account_firstName" value="Hans"><br>
-                <label for="account_lastName">Name:</label><input type="text" id="account_lastName" title="account_lastName" value="Muster"><br>
-                <label for="account_address">Adresse:</label><input type="text" id="account_address" title="account_address" value="Musterweg 42"><br>
-                <label for="account_plz">Postleitzahl:</label><input type="text" id="account_plz" title="account_plz" value="4242"><br>
-                <label for="account_email">Email:</label><input type="text" id="account_email" title="account_email" value="hans.muster@fhnw.ch"><br>
-            </aside>
-            <aside id="account_right">
-                <label for="account_username">Benutzername:</label><input type="text" id="account_username" title="account_username" value="Hans"><br>
-                <label for="account_currentPw">Aktuelles Passwort:</label><input type="text" id="account_currentPw" title="account_currentPw" value="Muster"><br>
-                <label for="account_newPw">Neues Passwort:</label><input type="text" id="account_newPw" title="account_newPw" value="Musterweg 42"><br>
-                <label for="account_confirmPw">Neues Passwort bestätigen:</label><input type="text" id="account_confirmPw" title="account_confirmPw" value="4242"><br>
-            </aside>
-            <button id="account_saveBtn">speichern</button>
+            <table>
+                <tr>
+                    <td class="label-td">
+                        <label for="account-username">Benutzername:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="account-username" type="text" placeholder="Benutzername" disabled="true">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="account-firstname">Vorname:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="account-firstname" type="text" placeholder="Vorname" disabled="true">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="account-lastname">Nachname:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="account-lastname" type="text" placeholder="Nachname" disabled="true">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="account-email">E-Mail-Adresse:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="account-email" type="text" placeholder="E-Mail-Adresse" disabled="true">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="account-address">Adresse:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="account-address" type="text" placeholder="Adresse" disabled="true">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="account-zip">PLZ:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="account-zip" type="text" placeholder="PLZ" disabled="true">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="account-old-password">altes Passwort:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="account-old-password" type="password" placeholder="altes Passwort">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="account-new-password1">neues Passwort:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="account-new-password1" type="password" placeholder="neues Passwort">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="account-new-password2">neues Passwort best&auml;tigen:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="account-new-password2" type="password" placeholder="neues Passwort best&auml;tigen">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button id="account-saveBtn">Passwort &auml;ndern</button>
+                    </td>
+                </tr>
+            </table>
         </section>
 
         <!-- calendar -->
         <section id="calendar-content">
-            <select id ="calendar_dropdown" title="calendar_dropdown">
-                <option value="boat1">Schiff1</option>
-                <option value="boat2">Schiff2</option>
-            </select>
-            <section id="calendar_weatherForecast"></section>
-            <div id='calendar'></div>
-            <h1>Neue Reservation</h1>
-            <label for="calendar_datum">Datum:</label><input type="text" id="calendar_datum" title="calendar_datum" value="dd-mm-yyyy"><br>
-            <label for="calendar_fromTime">Von:</label><input type="text" id="calendar_fromTime" title="calendar_fromTime" value="hh:mm"><br>
-            <label for="calendar_toTime">Bis:</label><input type="text" id="calendar_toTime" title="calendar_toTime" value="hh:mm"><br>
-            <button id="calendar_saveBtn">reservieren</button><br>
+            <!-- calendar view -->
+            <section id="timetable-content">
+                <select id ="calendar_dropdown" title="calendar_dropdown">
+                    <option value="boat1">Schiff1</option>
+                    <option value="boat2">Schiff2</option>
+                </select>
+                <!--<section id="calendar_weatherForecast"></section>-->
+                <div id="calendar"></div>
+                <button onclick="showReservation()">neue Reservation</button>
+            </section>
+
+            <!-- reservation view -->
+            <section id="reservation-content">
+                <table>
+                    <tr>
+                        <td>
+                            <h1>Neue Reservation</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">
+                            <label for="reservation-date">Datum:</label>
+                        </td>
+                        <td class="input-td">
+                            <input id="reservation-date" type="date" placeholder="tt.mm.jjjj">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">
+                            <label for="reservation-from">Von:</label>
+                        </td>
+                        <td class="input-td">
+                            <input id="reservation-from" type="time" placeholder="hh:mm">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">
+                            <label for="reservation-to">Bis:</label>
+                        </td>
+                        <td class="input-td">
+                            <input id="reservation-to" type="time" placeholder="hh:mm">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button onclick="saveReservation()">Reservation speichern</button>
+                            <button class="secondary" onclick="showCalendar()">Abbrechen</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </section>
         </section>
 
-        <!-- boats -->
-        <section id="boat-content">
-            <section id="boat_tableContent"></section>
-            <label for="boat_boatname">Schiffsname:</label><input type="text" id="boat_boatname" title="boat_boatname" value="Max"><br>
-            <label for="boat_type">Typ:</label><input type="text" id="boat_type" title="boat_type" value="ST 19"><br>
-            <label for="boat_place">Standort:</label><input type="text" id="boat_place" title="boat_place" value="Beinwil"><br>
-            <label for="boat_location">Anlegeplatz:</label><input type="text" id="boat_location" title="boat_location" value="15"><br>
-            <button id="boat_addBtn">hinzufügen</button>
+        <!-- ships -->
+        <section id="ship-content">
+            <!-- ship list -->
+            <table class="shiplist">
+                <tr>
+                    <td colspan="4" style="padding:8px 0">
+                        <h1>Schiffsliste</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Schiffsname</th>
+                    <th>Typ</th>
+                    <th>Standort</th>
+                    <th>Anlegeplatz</th>
+                </tr>
+                <tr>
+                    <td>Hillary</td>
+                    <td>420</td>
+                    <td>Hallwil</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Basta</td>
+                    <td>720</td>
+                    <td>Hallwil</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>Lulu</td>
+                    <td>720</td>
+                    <td>Hallwil</td>
+                    <td>12</td>
+                </tr>
+            </table>
+
+            <!-- ship creation -->
+            <table class="shipCreation">
+                <tr>
+                    <td colspan="2">
+                        <h1>Neues Schiff registrieren</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="ship-name">Schiffsname:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="ship-name" type="text" placeholder="Schiffsname">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="ship-type">Schiffstyp:</label>
+                    </td>
+                    <td class="input-td">
+                        <input id="ship-type" type="text" placeholder="Schiffstyp">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="ship-berthtown">Standort:</label>
+                    </td>
+                    <td class="input-td">
+                        <select id="ship-berthtown">
+                            <option value=""></option>
+                            <option value="berthtown1">Hallwil</option>
+                            <option value="berthtown2">Meisterschwanden</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-td">
+                        <label for="ship-berth">Anlegeplatz:</label>
+                    </td>
+                    <td class="input-td">
+                        <select id="ship-berth">
+                            <option value=""></option>
+                            <option value="berth1">1</option>
+                            <option value="berth1">2</option>
+                            <option value="berth1">11</option>
+                            <option value="berth1">22</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button onclick="saveShip()">Schiff registrieren</button>
+                        <button class="secondary" onclick="clearShipCreation()">Abbrechen</button>
+                    </td>
+                </tr>
+            </table>
         </section>
-
-
     </main>
 </body>
 </html>
