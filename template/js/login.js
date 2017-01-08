@@ -33,8 +33,19 @@ function login() {
     }
 
     if (!hasErrors) {
-        alert("Username = " + username + ", password = " + password);
-        // perform login request
+        var params = {
+            username: username,
+            password: password
+        };
+        ajaxRequest("http://localhost/login", "POST", params, function($data) {
+            if($data === "false"){
+                $("#login-username").addClass("error");
+                $("#login-password").addClass("error");
+            } else {
+                localStorage.username = $data['username'];
+                location.reload();
+            }
+        });
     }
 }
 
@@ -91,8 +102,24 @@ function register() {
     }
 
     if (!hasErrors) {
-        alert("ok");
-        // perform registration request
+        var params = {
+            userName: username,
+            firstName: firstname,
+            lastName: lastname,
+            email: email,
+            address: address,
+            zip: zip,
+            password: password1
+        };
+
+        ajaxRequest("http://localhost/users", "POST", params, function($data) {
+            if($data === "false"){
+                $("#register-username").addClass("error");
+            } else {
+                localStorage.username = $data['userName'];
+                location.reload();
+            }
+        });
     }
 }
 
