@@ -8,6 +8,6 @@ $app->get('/berths', function($request, $response) use ($berthDao) {
         });
         return $response->withJson(array_values($berths), 200);
     } else {
-        return $response->withJson(json_encode(false), 403);
+        return $response->write('Page not found')->withStatus(404);
     }
-});
+})->add($authenticate);

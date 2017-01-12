@@ -28,13 +28,13 @@ $app->get('/reservations', function($request, $response) use ($resDao) {
         $reservations = $resDao->getAllReservations();
         return $response->withJson(array_values(fillInformation($reservations)), 200);
     }
-});
+})->add($authenticate);
 
 $app->post('/reservations', function($request, $response) use ($resDao, $shipDao, $userDao) {
     $json = $request->getParsedBody();
     $resId = $resDao->createReservation($json);
     if ($resId < 0) {
-        return $response->withStatus(400);
+        return $response->write('Bad request.')->withStatus(400);
     } else {
         $result = array();
         $result['reservationId'] = $resId;
@@ -44,17 +44,17 @@ $app->post('/reservations', function($request, $response) use ($resDao, $shipDao
         $result['shipName'] = $shipDao->getShipName($json['shipId']);
         return $response->withJson($result, 201);
     }
-});
+})->add($authenticate);
 
 $app->delete('/reservations/{id}', function($request, $response, $args) use ($resDao) {
     $resId = intval($args['id']);
     if (!$resDao->exists($resId)) {
-        return $response->withJson(json_encode(false), 404);
+        return $response->write('User not found')->withStatus(404);
     }
 
     if ($resDao->deleteReservation($resId)) {
         return $response->withStatus(204);
     } else {
-        return $response->withJson(json_encode(false), 500);
+        return $response->write('Server error')->withStatus(500);
     }
-});
+})->add($authenticate);

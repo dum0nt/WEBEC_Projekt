@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once 'vendor/autoload.php';
 require_once 'helper/DbConnection.php';
@@ -7,6 +8,16 @@ use function database\getDBConnection as openDatabase;
 
 $app = new \Slim\App();
 $view = new \Slim\Views\PhpRenderer('./template/html');
+
+// Middleware for authentication
+$authenticate = function($request, $response, $next) {
+    if (!isset($_SESSION['username'])) {
+        return $response->write('Authorization required.')->withStatus(401);
+    }
+
+    $response = $next($request, $response);
+    return $response;
+};
 
 require_once 'helper/BerthDAO.php';
 require_once 'helper/BerthTownDAO.php';
@@ -25,34 +36,6 @@ require_once 'routing/BerthTownRouter.php';
 require_once 'routing/ReservationRouter.php';
 require_once 'routing/ShipRouter.php';
 require_once 'routing/UserRouter.php';
-
-function isLoggedIn() {
-    session_start();
-    $loggedIn = isset($_SESSION['isLoggedIn']);
-    var_dump($loggedIn);
-    return $loggedIn;
-}
-
-function createUserSession($userId, $username) {
-//    session_start();
-    $_SESSION['userid'] = $userId;
-    $_SESSION['username'] = $username;
-    $_SESSION['isLoggedIn'] = true;
-}
-
-function deleteUserSession() {
-    session_unset();
-    session_destroy();
-}
-
-function getUserId($request) {
-    session_start();
-    if(isLoggedIn() && isset($_SESSION["userid"]) && !empty($_SESSION["userid"])) {
-        return $_SESSION["userid"];
-    } else {
-        return false;
-    }
-}
 
 function login($username, $password) {
     $db = openDatabase();
@@ -75,6 +58,7 @@ function login($username, $password) {
     $submittedPasswordHash = md5($password . $salt);
 
     if ($passwordHash == $submittedPasswordHash) {
+        $_SESSION['username'] = $username;
         return $user['UserId'];
     } else {
         return false;
@@ -93,37 +77,11 @@ function getUserName($userId) {
     return $user['Username'];
 }
 
-// enabling CORS
-$app->options('/{routes:.+}', function ($request, $response, $args) {
-    return $response;
-});
-
-$app->add(function ($req, $res, $next) {
-    $response = $next($req, $res);
-    return $response
-        ->withHeader('Access-Control-Allow-Origin', '*')
-        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-});
-
-$app->get('/', function($request, $response) use ($app, $view) {
-//    if (!isLoggedIn()) {
-//        return $response->withRedirect('/login');
-//    }
+$app->get('/', function($request, $response) use ($view) {
     return $view->render($response, '/index.html');
 });
 
-$app->get('/login', function($request, $response) use ($app, $view) {
-//    if (isLoggedIn()) {
-//        return $response->withRedirect('/');
-//    }
-    return $view->render($response, '/login.html');
-});
-
-$app->post('/login', function($request, $response) use ($app) {
-    if(isLoggedIn()) {
-        return $response->withRedirect('/');
-    }
+$app->post('/login', function($request, $response)  {
     $params = $request->getParsedBody();
     $username = $params['username'];
     $password = $params['password'];
@@ -131,18 +89,15 @@ $app->post('/login', function($request, $response) use ($app) {
     $userId = login($username, $password);
 
     if($userId == false) {
-        return $response->withJson(json_encode(false));
+        return $response->write('Wrong password or user.')->withStatus(401);
     } else {
-        createUserSession($userId, $username);
         $json = array('username' => getUserName($userId));
         return $response->withJson($json);
     }
 });
 
-$app->get('/logout', function($request, $response) use ($app) {
-    deleteUserSession();
-    $response = FigResponseCookies::expire($response, 'ahoy_cookie');
-    return $response->withRedirect('/');
-});
+$app->get('/logout', function($request, $response) {
+    unset($_SESSION['username']);
+})->add($authenticate);
 
 $app->run();

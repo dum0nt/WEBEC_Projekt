@@ -4,6 +4,10 @@
     margin: 0 auto;
 }
 
+a {
+    display: inline;
+}
+
 button {
     background-color: #008cba;
     color: white;
@@ -14,13 +18,35 @@ button {
     margin: 20px 0;
 }
 
+button.center-button {
+    display: block;
+    width: 30%;
+    margin: 20px auto;
+}
+
 button.secondary {
     background-color: #ddd;
     color: #666;
 }
 
+fieldset {
+    width: 700px;
+    border: 1px solid #888;
+    border-radius: 4px;
+}
+
+legend {
+    font-size: 20px;
+    font-weight: bold;
+}
+
 h1 {
     font-size: 20px;
+}
+
+img {
+    display: block;
+    margin: 100px auto 50px auto;
 }
 
 input, select {
@@ -31,7 +57,7 @@ input, select {
     box-sizing: border-box;
 }
 
-input, input[type=password] {
+input {
     width: 100%;
 }
 
@@ -88,8 +114,17 @@ nav .active a {
     color: white;
 }
 
+p {
+    margin: 50px 0 0 0;
+    text-align: center;
+}
+
 table {
     width: 40%;
+}
+
+table.login-table {
+    width: 100%;
 }
 
 td.label-td {

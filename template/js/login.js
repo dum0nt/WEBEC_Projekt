@@ -1,20 +1,3 @@
-var LOGIN_CONTENT = '#login-content';
-var REGISTER_CONTENT = '#register-content';
-
-function showLogin() {
-    $('section').hide();
-    $('input').removeClass('error');
-    $('input').val('');
-    $(LOGIN_CONTENT).show();
-}
-
-function showRegistration() {
-    $('section').hide();
-    $('input').removeClass('error');
-    $('input').val('');
-    $(REGISTER_CONTENT).show();
-}
-
 function login() {
     $('input').removeClass('error');
     var username = $('#login-username').val();
@@ -37,14 +20,12 @@ function login() {
             username: username,
             password: password
         };
-        ajaxRequest("http://localhost/login", "POST", params, function($data) {
-            if($data === "false"){
-                $("#login-username").addClass("error");
-                $("#login-password").addClass("error");
-            } else {
-                localStorage.username = $data['username'];
-                location.reload();
-            }
+        ajaxRequest("http://localhost/login", "POST", params, function(data) {
+            localStorage.username = data['username'];
+            showCalendar();
+        }, function(data) {
+            $('#login-username').addClass('error');
+            $('#login-password').addClass('error');
         });
     }
 }
@@ -112,17 +93,14 @@ function register() {
             password: password1
         };
 
-        ajaxRequest("http://localhost/users", "POST", params, function($data) {
-            if($data === "false"){
-                $("#register-username").addClass("error");
-            } else {
-                localStorage.username = $data['userName'];
-                location.reload();
-            }
+        ajaxRequest("http://localhost/users", "POST", params, showLogin(), function() {
+            $("#register-username").addClass("error");
         });
     }
 }
 
-$(document).ready(function() {
-    showLogin();
-});
+function logout() {
+    ajaxRequest("http://localhost/logout", "GET", null, showLogin(), function() {
+        // do nothing
+    });
+}
