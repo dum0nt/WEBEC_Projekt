@@ -12,24 +12,6 @@ var SHIP_NAVLINK = '#ship-navlink';
 var LAKE_LATITUDE = 47.282096;
 var LAKE_LONGITUDE = 8.215788;
 
-function ajaxRequest(url, method, parameters, donefunction, failfunction) {
-    req = $.ajax({
-        url: url,
-        context: document.body,
-        method: method,
-        dataType: 'json',
-        data: parameters,
-    });
-
-    req.done(function(data) {
-        donefunction(data);
-    });
-
-    req.fail(function(data) {
-        failfunction(data);
-    });
-}
-
 function showLogin() {
     $('#login-logo').show();
     $('nav').hide();
@@ -114,5 +96,15 @@ function clearShipCreation() {
 }
 
 $(document).ready(function() {
-    ajaxRequest("/", "GET", null, showCalendar(), showLogin());
+    $.ajax({
+        url:'/ships',
+        type:'GET',
+        data:null,
+        success:function () {
+            showCalendar();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            showLogin();
+        }
+    });
 });

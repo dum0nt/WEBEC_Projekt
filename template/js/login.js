@@ -20,12 +20,19 @@ function login() {
             username: username,
             password: password
         };
-        ajaxRequest("/login", "POST", params, function(data) {
-            localStorage.username = data['username'];
-            showCalendar();
-        }, function(data) {
-            $('#login-username').addClass('error');
-            $('#login-password').addClass('error');
+
+        $.ajax({
+            url:'/login',
+            type:'POST',
+            data: params,
+            success:function (response) {
+                window.localStorage.setItem('userid', response['userid']);
+                showCalendar();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('#login-username').addClass('error');
+                $('#login-password').addClass('error');
+            }
         });
     }
 }
@@ -93,14 +100,30 @@ function register() {
             password: password1
         };
 
-        ajaxRequest("/users", "POST", params, showLogin(), function() {
-            $("#register-username").addClass("error");
+        $.ajax({
+            url:'/users',
+            type:'POST',
+            data: params,
+            success:function (response) {
+                showLogin();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $("#register-username").addClass("error");
+            }
         });
     }
 }
 
 function logout() {
-    ajaxRequest("/logout", "GET", null, showLogin(), function() {
-        // do nothing
+    $.ajax({
+        url:'/logout',
+        type:'GET',
+        data: null,
+        success:function (response) {
+            showLogin();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // do nothing
+        }
     });
 }

@@ -19,7 +19,7 @@ $app->post('/users', function($request, $response) use ($userDao) {
     $result['email'] = $jsonReq['email'];
 
     return $response->withJson($result, 201);
-})->add($authenticate);
+});
 
 $app->get('/users/{id}', function($request, $response, $args) use ($userDao) {
     $userId = intval($args['id']);

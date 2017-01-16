@@ -57,7 +57,7 @@ function login($username, $password) {
 
     if ($passwordHash == $submittedPasswordHash) {
         $_SESSION['username'] = $username;
-        return $user['UserId'];
+        return intval($user['UserId']);
     } else {
         return false;
     }
@@ -72,7 +72,7 @@ function getUserName($userId) {
         throw new Exception("There appears to be a problem with the database connection");
     }
     $user = $selectUser->fetch(PDO::FETCH_ASSOC);
-    return $user['Username'];
+    return $user['UserName'];
 }
 
 $app->get('/', function($request, $response) use ($view) {
@@ -88,7 +88,7 @@ $app->post('/login', function($request, $response)  {
     if($userId == false) {
         return $response->write('Wrong password or user.')->withStatus(401);
     } else {
-        $json = array('username' => getUserName($userId));
+        $json = array('username' => getUserName($userId), 'userid' => $userId);
         return $response->withJson($json);
     }
 });
