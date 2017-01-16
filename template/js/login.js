@@ -20,7 +20,7 @@ function login() {
             username: username,
             password: password
         };
-        ajaxRequest("http://localhost/login", "POST", params, function(data) {
+        ajaxRequest("/login", "POST", params, function(data) {
             localStorage.username = data['username'];
             showCalendar();
         }, function(data) {
@@ -93,14 +93,14 @@ function register() {
             password: password1
         };
 
-        ajaxRequest("http://localhost/users", "POST", params, showLogin(), function() {
+        ajaxRequest("/users", "POST", params, showLogin(), function() {
             $("#register-username").addClass("error");
         });
     }
 }
 
 function logout() {
-    ajaxRequest("http://localhost/logout", "GET", null, showLogin(), function() {
+    ajaxRequest("/logout", "GET", null, showLogin(), function() {
         // do nothing
     });
 }

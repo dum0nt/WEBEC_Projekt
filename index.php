@@ -2,8 +2,6 @@
 session_start();
 
 require_once 'vendor/autoload.php';
-require_once 'helper/DbConnection.php';
-
 use function database\getDBConnection as openDatabase;
 
 $app = new \Slim\App();
@@ -38,10 +36,10 @@ require_once 'routing/ShipRouter.php';
 require_once 'routing/UserRouter.php';
 
 function login($username, $password) {
-    $db = openDatabase();
-    $userSelect = $db->prepare('SELECT UserId, PasswordHash, SaltValue FROM Users WHERE Username = :username');
-    $userSelect->bindParam(':username', $username);
 
+    $db = openDatabase();
+    $userSelect = $db->prepare('SELECT UserId, PasswordHash, SaltValue FROM users WHERE UserName = :username');
+    $userSelect->bindParam(':username', $username);
     if (!$userSelect->execute()) {
         throw new Exception("There appears to be a problem with the database connection");
     }
@@ -67,7 +65,7 @@ function login($username, $password) {
 
 function getUserName($userId) {
     $db = openDatabase();
-    $selectUser = $db->prepare('SELECT Username FROM Users WHERE UserId = :userId');
+    $selectUser = $db->prepare('SELECT UserName FROM users WHERE UserId = :userId');
     $selectUser->bindParam(':userId', $userId);
 
     if (!$selectUser->execute()) {
@@ -85,7 +83,6 @@ $app->post('/login', function($request, $response)  {
     $params = $request->getParsedBody();
     $username = $params['username'];
     $password = $params['password'];
-
     $userId = login($username, $password);
 
     if($userId == false) {

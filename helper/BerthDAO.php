@@ -1,11 +1,9 @@
 <?php
 
 namespace dao;
-
-require_once 'helper/DbConnection.php';
-
-use function database\getDBConnection as openDatabase;
 use PDO;
+require_once 'helper/DbConnection.php';
+use function database\getDBConnection as openDatabase;
 
 class BerthDAO
 {

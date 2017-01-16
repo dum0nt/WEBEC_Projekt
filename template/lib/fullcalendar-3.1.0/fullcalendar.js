@@ -11135,7 +11135,7 @@ Calendar.defaults = {
 
 	timezone: false,
 
-	//allDayDefault: undefined,
+	allDayDefault: true,
 
 	// locale
 	isRTL: false,

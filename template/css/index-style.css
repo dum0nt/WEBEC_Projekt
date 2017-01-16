@@ -44,7 +44,7 @@ h1 {
     font-size: 20px;
 }
 
-img {
+#login-logo {
     display: block;
     margin: 100px auto 50px auto;
 }
@@ -114,7 +114,12 @@ nav .active a {
     color: white;
 }
 
-p {
+#register-text {
+    margin: 50px 0 0 0;
+    text-align: center;
+}
+
+#login-text{
     margin: 50px 0 0 0;
     text-align: center;
 }
@@ -159,4 +164,23 @@ table.shiplist {
 .shiplist th {
     background-color: #008cba;
     color: white;
+}
+
+/* calendar */
+
+.fc-content{
+    text-align: center;
+    vertical-align: middle;
+    height: 120px;
+    margin-left:auto;
+    margin-right:auto;
+    display: block;
+}
+
+#forecast-temp{
+    padding-bottom: 10px;
+}
+
+#forecast-speed{
+    font-style: italic;
 }

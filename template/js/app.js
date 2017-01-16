@@ -1,6 +1,5 @@
 var LOGIN_CONTENT = '#login-content';
 var REGISTER_CONTENT = '#register-content';
-
 var ACCOUNT_CONTENT = '#account-content';
 var ACCOUNT_NAVLINK = '#account-navlink';
 var CALENDAR_CONTENT = '#calendar-content';
@@ -59,6 +58,7 @@ function showAccount() {
 }
 
 function showCalendar() {
+    loadDropdownContent();
     $('#login-logo').hide();
     $('nav').show();
 
@@ -69,21 +69,6 @@ function showCalendar() {
     $(CALENDAR_NAVLINK).addClass('active');
     $(CALENDAR_CONTENT).show();
     $(TIMETABLE_CONTENT).show();
-
-    // fill calendar
-    $(CALENDAR_DIV).fullCalendar({
-        // options and callbacks
-        header: {
-            left:   '',
-            center: 'title',
-            right:  'today prev,next'
-        },
-        defaultView: 'agendaWeek',
-        locale: 'de',
-        height: 'auto',
-        minTime: '08:00:00',
-        maxTime: '18:00:00'
-    });
 }
 
 function showReservation() {
@@ -98,6 +83,7 @@ function showReservation() {
 }
 
 function showShips() {
+    loadShips();
     $('#login-logo').hide();
     $('nav').show();
 
@@ -128,5 +114,5 @@ function clearShipCreation() {
 }
 
 $(document).ready(function() {
-    ajaxRequest("http://localhost", "GET", null, showCalendar(), showLogin());
+    ajaxRequest("/", "GET", null, showCalendar(), showLogin());
 });

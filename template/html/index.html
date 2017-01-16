@@ -14,6 +14,8 @@
     <script src='./template/lib/fullcalendar-3.1.0/locale/de.js'></script>
     <script src="./template/js/app.js"></script>
     <script src="./template/js/login.js"></script>
+    <script src="./template/js/calendar.js"></script>
+    <script src="./template/js/ships.js"></script>
     <!--<script src="./template/js/index.js"></script>-->
 
     <title>Ahoy</title>
@@ -54,7 +56,7 @@
                 </table>
                 <button id="login-button" class="center-button" onclick="login()">Login</button>
             </fieldset>
-            <p>Falls Sie noch kein Konto besitzen, k&ouml;nnen Sie <a href="#" onclick="showRegistration()">hier</a> eines
+            <p id="register-text">Falls Sie noch kein Konto besitzen, k&ouml;nnen Sie <a href="#" onclick="showRegistration()">hier</a> eines
                 erstellen.</p>
             <!--<input type="radio" id="login_saveUsername"><label for="login_saveUsername">Benutzername speichern</label><br>-->
         </section>
@@ -131,7 +133,7 @@
                 </table>
                 <button id="register-button" class="center-button" onclick="register()">Registrieren</button>
             </fieldset>
-            <p>Loggen Sie sich <a href="#" onclick="showLogin()">hier</a> ein, falls Sie schon ein Konto besitzen.</p>
+            <p id="login-text">Loggen Sie sich <a href="#" onclick="showLogin()">hier</a> ein, falls Sie schon ein Konto besitzen.</p>
         </section>
 
         <!-- account -->
@@ -221,9 +223,8 @@
         <section id="calendar-content">
             <!-- calendar view -->
             <section id="timetable-content">
-                <select id ="calendar_dropdown" title="calendar_dropdown">
-                    <option value="boat1">Schiff1</option>
-                    <option value="boat2">Schiff2</option>
+                <select onchange="loadSelectedShipCalendar()" id ="calendar_dropdown" title="calendar_dropdown">
+                    <option value="" disabled selected>Wählen Sie ein Schiff ...</option>
                 </select>
                 <!--<section id="calendar_weatherForecast"></section>-->
                 <div id="calendar"></div>
@@ -276,37 +277,7 @@
         <!-- ships -->
         <section id="ship-content">
             <!-- ship list -->
-            <table class="shiplist">
-                <tr>
-                    <td colspan="4" style="padding:8px 0">
-                        <h1>Schiffsliste</h1>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Schiffsname</th>
-                    <th>Typ</th>
-                    <th>Standort</th>
-                    <th>Anlegeplatz</th>
-                </tr>
-                <tr>
-                    <td>Hillary</td>
-                    <td>420</td>
-                    <td>Hallwil</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>Basta</td>
-                    <td>720</td>
-                    <td>Hallwil</td>
-                    <td>15</td>
-                </tr>
-                <tr>
-                    <td>Lulu</td>
-                    <td>720</td>
-                    <td>Hallwil</td>
-                    <td>12</td>
-                </tr>
-            </table>
+            <table class="shiplist"></table>
 
             <!-- ship creation -->
             <table class="shipCreation">
@@ -335,12 +306,8 @@
                     <td class="label-td">
                         <label for="ship-berthtown">Standort:</label>
                     </td>
-                    <td class="input-td">
-                        <select id="ship-berthtown">
-                            <option value=""></option>
-                            <option value="berthtown1">Hallwil</option>
-                            <option value="berthtown2">Meisterschwanden</option>
-                        </select>
+                    <td onchange="loadBerths()" class="input-td">
+                        <select id="ship-berthtown"></select>
                     </td>
                 </tr>
                 <tr>
@@ -348,13 +315,7 @@
                         <label for="ship-berth">Anlegeplatz:</label>
                     </td>
                     <td class="input-td">
-                        <select id="ship-berth">
-                            <option value=""></option>
-                            <option value="berth1">1</option>
-                            <option value="berth1">2</option>
-                            <option value="berth1">11</option>
-                            <option value="berth1">22</option>
-                        </select>
+                        <select id="ship-berth"></select>
                     </td>
                 </tr>
                 <tr>

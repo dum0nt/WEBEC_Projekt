@@ -81,6 +81,6 @@
 //     // perform logout action
 // }
 //
-// // $(document).ready(function() {
-// //     showCalendar();
-// // });
+// $(document).ready(function() {
+//     showCalendar();
+// });
