@@ -31,6 +31,7 @@ function showRegistration() {
 }
 
 function showAccount() {
+    loadUserData();
     $('#login-logo').hide();
     $('nav').show();
     $('section').hide();

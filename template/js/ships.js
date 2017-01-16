@@ -43,16 +43,33 @@ function saveShip() {
     var shipname = $('#ship-name').val();
     var shiptype = $('#ship-type').val();
     var berthtown = $('#ship-berthtown').val();
-    var berth = $('#ship-berth').val();
+    var berthNumber = $('#ship-berth').val();
+    var berthtownid = findIdToBerthTown(berthtown);
+    alert("BerthTownId"+berthtownid);
+    alert("BerthNumber"+berthNumber);
+    var berths = $.ajax({
+        url:"/berths",
+        method:"GET",
+        async: false,
+        dataType: 'json'
+    }).responseJSON;
+    berths.forEach(function (berth){
+        if(berth.BerthNumber == berthNumber && berth.BerthTownId == berthtownid) {
+            TEMP_BERTH_ID = berth.BerthId;
+            alert("BerthId: "+TEMP_BERTH_ID);
+        }
+    });
+    alert("BerthId: "+TEMP_BERTH_ID);
     $.ajax({
        url:'/ships',
         type:'POST',
-        data:{shipName:shipname,shipType:shiptype,berthId:berth},
+        data:{shipName:shipname,shipType:shiptype,berthTown: berthtown,berthId:TEMP_BERTH_ID},
         dataTyp:'json',
         success:function (response) {},
         error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown) }
     });
     loadShips();
+    loadBerths();
 }
 
 function loadBerthTownNames() {
@@ -85,7 +102,7 @@ function loadBerths() {
         dataType: 'json',
     }).responseJSON;
     berthtowns.forEach(function (berthtown) {
-        if(berthtown.berthTownName === TEMP_BERTH_TOWN_NAME) TEMP_BERTH_TOWN_ID = berthtown.berthTownId;
+        if(berthtown.TownName === TEMP_BERTH_TOWN_NAME) TEMP_BERTH_TOWN_ID = berthtown.BerthTownId;
     });
 
     $('#ship-berth').empty();
@@ -95,13 +112,12 @@ function loadBerths() {
         dataType: 'json',
         data:{town:TEMP_BERTH_TOWN_ID},
         success:function(berthts){
-            var counter = 1;
             var emptyOption = new Option();
             $("#ship-berth").append(emptyOption);
             berthts.forEach(function (berth) {
                 if(berth.IsOccupied === false) {
-                    var option = new Option(counter, berth.BerthNumber);
-                    counter += 1;
+                    var option = new Option();
+                    option.text = berth.BerthNumber;
                     $("#ship-berth").append(option);
                 }
             })
@@ -156,3 +172,14 @@ function findBerthTownName(boatName){
     return TEMP_BERTH_TOWN_NAME;
 }
 
+function findIdToBerthTown(BerthTown){
+    var berthtowns = $.ajax({
+        url: '/berthtowns',
+        async: false,
+        dataType: 'json'
+    }).responseJSON;
+    berthtowns.forEach(function (berthtown) {
+        if(berthtown.TownName === BerthTown) TEMP_BERTH_TOWN_ID = berthtown.BerthTownId;
+    });
+    return TEMP_BERTH_TOWN_ID;
+}
