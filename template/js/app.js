@@ -12,6 +12,9 @@ var SHIP_NAVLINK = '#ship-navlink';
 var LAKE_LATITUDE = 47.282096;
 var LAKE_LONGITUDE = 8.215788;
 
+/**
+ * shows the login dialog
+ */
 function showLogin() {
     $('#login-logo').show();
     $('nav').hide();
@@ -21,6 +24,9 @@ function showLogin() {
     $(LOGIN_CONTENT).show();
 }
 
+/**
+ * shows the registration dialog
+ */
 function showRegistration() {
     $('#login-logo').show();
     $('nav').hide();
@@ -30,6 +36,9 @@ function showRegistration() {
     $(REGISTER_CONTENT).show();
 }
 
+/**
+ * shows the account dialog
+ */
 function showAccount() {
     loadUserData();
     $('#login-logo').hide();
@@ -40,6 +49,9 @@ function showAccount() {
     $(ACCOUNT_CONTENT).show();
 }
 
+/**
+ * shows the calendar dialog
+ */
 function showCalendar() {
     loadDropdownContent();
     $('#login-logo').hide();
@@ -54,6 +66,9 @@ function showCalendar() {
     $(TIMETABLE_CONTENT).show();
 }
 
+/**
+ * shows the reservation dialog
+ */
 function showReservation() {
     $('#login-logo').hide();
     $('nav').show();
@@ -65,6 +80,9 @@ function showReservation() {
     $(RESERVATION_CONTENT).show();
 }
 
+/**
+ * shows the ship dialog
+ */
 function showShips() {
     loadShips();
     $('#login-logo').hide();
@@ -76,21 +94,9 @@ function showShips() {
     $(SHIP_CONTENT).show();
 }
 
-function saveReservation() {
-    var date = $('#reservation-date').val();
-    var from = $('#reservation-from').val();
-    var to = $('#reservation-to').val();
-    alert('Datum: ' + date + '\nVon: ' + from + '\nBis: ' + to);
-}
-
-function saveShip() {
-    var shipname = $('#ship-name').val();
-    var shiptype = $('#ship-type').val();
-    var berthtown = $('#ship-berthtown').val();
-    var berth = $('#ship-berth').val();
-    alert('Name: ' + shipname + '\nTyp: ' + shiptype + '\nStandort: ' + berthtown + '\nAnlegeplatz: ' + berth);
-}
-
+/**
+ * shows the calendar dialog
+ */
 function clearShipCreation() {
     $('.shipCreation input').val('');
     $('.shipCreation select').val('');
