@@ -1,5 +1,4 @@
 var QUERY_FORECAST = 'http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&cnt=7&appid=f123fa9f14160191af9e90b4a039bddc&q=';
-var INIT_FLAG = true;
 var BOAT_NAME;
 var BOAT_ID;
 var BERTH_ID;
@@ -8,20 +7,18 @@ var BERTH_TOWN_NAME;
 var CALENDAR;
 
 function loadDropdownContent() {
-    var select = document.getElementById('calendar_dropdown');
+    var select = $('#calendar_dropdown');
+    select.empty();
+    select.append('<option value="" disabled selected>W&auml;hlen Sie ein Schiff ...</option>');
     var counter = 0;
-    if(INIT_FLAG) {
-        data('/ships', function (ships) {
-            ships.forEach(function (item) {
-                var option = document.createElement("option");
-                option.value = 'boat' + counter;
-                option.textContent = item.ShipName;
-                counter += 1;
-                select.add(option);
-            })
-        });
-        INIT_FLAG = false;
-    }
+    data('/ships', function (ships) {
+        ships.forEach(function (item) {
+            var value = 'boat' + counter;
+            var text = item.ShipName;
+            select.append('<option value="' + value + '">' + text + '</option>');
+            counter += 1;
+        })
+    });
 }
 
 function loadCalendar(){
