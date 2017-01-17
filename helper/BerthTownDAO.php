@@ -7,7 +7,8 @@ class BerthTownDAO
 {
     /**
      * Gets all towns with berths
-     * @return array: all towns with berths
+     * @return array : all towns with berths
+     * @throws Exception: if there is a database error
      */
     public function getAllBerthTowns() {
         $db = openDatabase();

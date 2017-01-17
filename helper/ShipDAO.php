@@ -30,8 +30,9 @@ class ShipDAO
 
     /**
      * Returns the name of a ship with a given id
-     * @param $shipId: id of the ship
-     * @return mixed: name of the ship
+     * @param $shipId : id of the ship
+     * @return mixed : name of the ship
+     * @throws Exception: if there is a database error
      */
     public function getShipName($shipId) {
         $db = openDatabase();
@@ -98,8 +99,9 @@ class ShipDAO
 
     /**
      * Indicates if a ship with a given id exists
-     * @param $shipId: ship to be searched
-     * @return bool: true if the ship exists
+     * @param $shipId : ship to be searched
+     * @return bool : true if the ship exists
+     * @throws Exception: if there is a database error
      */
     public function exists($shipId) {
         $db = openDatabase();

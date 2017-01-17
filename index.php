@@ -35,8 +35,14 @@ require_once 'routing/ReservationRouter.php';
 require_once 'routing/ShipRouter.php';
 require_once 'routing/UserRouter.php';
 
+/**
+ * Processes the login of a user.
+ * @param $username: login username
+ * @param $password: login password
+ * @return bool|int: user ID if the login was successful, false if username or password was wrong
+ * @throws Exception: if there is a database error
+ */
 function login($username, $password) {
-
     $db = openDatabase();
     $userSelect = $db->prepare('SELECT UserId, PasswordHash, SaltValue FROM users WHERE UserName = :username');
     $userSelect->bindParam(':username', $username);
@@ -63,23 +69,11 @@ function login($username, $password) {
     }
 }
 
-function getUserName($userId) {
-    $db = openDatabase();
-    $selectUser = $db->prepare('SELECT UserName FROM users WHERE UserId = :userId');
-    $selectUser->bindParam(':userId', $userId);
-
-    if (!$selectUser->execute()) {
-        throw new Exception("There appears to be a problem with the database connection");
-    }
-    $user = $selectUser->fetch(PDO::FETCH_ASSOC);
-    return $user['UserName'];
-}
-
 $app->get('/', function($request, $response) use ($view) {
     return $view->render($response, '/index.html');
 });
 
-$app->post('/login', function($request, $response)  {
+$app->post('/login', function($request, $response) use($userDao) {
     $params = $request->getParsedBody();
     $username = $params['username'];
     $password = $params['password'];
@@ -88,7 +82,7 @@ $app->post('/login', function($request, $response)  {
     if($userId == false) {
         return $response->write('Wrong password or user.')->withStatus(401);
     } else {
-        $json = array('username' => getUserName($userId), 'userid' => $userId);
+        $json = array('username' => $userDao->getUserName($userId), 'userid' => $userId);
         return $response->withJson($json);
     }
 });

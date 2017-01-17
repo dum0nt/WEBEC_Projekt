@@ -9,6 +9,7 @@ class UserDAO
      * Creates a new user if the username not already exists
      * @param $user: user data
      * @return bool|int: id of the created user or false if username already existed
+     * @throws Exception: if there is a database error
      */
     public function createUser($user) {
         $db = openDatabase();
@@ -68,8 +69,9 @@ class UserDAO
 
     /**
      * Updates the password of a user.
-     * @param $user: user data
-     * @return bool: true if successful, false if old password did not match
+     * @param $user : user data
+     * @return bool : true if successful, false if old password did not match
+     * @throws Exception: if there is a database error
      */
     public function updateUserPassword($user) {
         $userId = $user['userId'];
@@ -115,8 +117,9 @@ class UserDAO
 
     /**
      * Indicates if a user with a given id exists
-     * @param $userId: user to be searched
-     * @return bool: true if the user exists
+     * @param $userId : user to be searched
+     * @return bool : true if the user exists
+     * @throws Exception: if there is a database error
      */
     public function exists($userId) {
         $db = openDatabase();
@@ -128,5 +131,23 @@ class UserDAO
         }
 
         return $count->rowCount() > 0;
+    }
+
+    /**
+     * Retrieves the username related to a user ID
+     * @param $userId: user ID to be searched
+     * @return mixed: username
+     * @throws Exception: if there is a database error
+     */
+    function getUserName($userId) {
+        $db = openDatabase();
+        $selectUser = $db->prepare('SELECT UserName FROM users WHERE UserId = :userId');
+        $selectUser->bindParam(':userId', $userId);
+
+        if (!$selectUser->execute()) {
+            throw new Exception("There appears to be a problem with the database connection");
+        }
+        $user = $selectUser->fetch(PDO::FETCH_ASSOC);
+        return $user['UserName'];
     }
 }

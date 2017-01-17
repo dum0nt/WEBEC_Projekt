@@ -7,7 +7,8 @@ class ReservationDAO
 {
     /**
      * Retrieves all reservations
-     * @return array: all reservations
+     * @return array : all reservations
+     * @throws Exception: if there is a database error
      */
     public function getAllReservations() {
         $db = openDatabase();
@@ -64,8 +65,9 @@ class ReservationDAO
 
     /**
      * Indicates if a reservation with a given id exists
-     * @param resId: id of the reservation to be searched
-     * @return bool: true if the reservation exists
+     * @param resId : id of the reservation to be searched
+     * @return bool : true if the reservation exists
+     * @throws Exception: if there is a database error
      */
     public function exists($resId) {
         $db = openDatabase();
