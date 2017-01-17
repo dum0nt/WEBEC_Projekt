@@ -9,10 +9,10 @@ $app->post('/ships', function($request, $response) use ($shipDao, $berthDao) {
 
     $shipId = $shipDao->createShip($jsonReq);
     if ($shipId == false) {
-        $berthDao->setBerthOccupied($jsonReq['berthId'], true);
         return $response->write('Bad Request.')->withStatus(400);
     } else {
         $jsonReq['shipId'] = $shipId;
+        $berthDao->setBerthOccupied($jsonReq['berthId'], true);
         return $response->withJson($jsonReq, 201);
     }
 })->add($authenticate);

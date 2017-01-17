@@ -120,6 +120,7 @@ function logout() {
         type:'GET',
         data: null,
         success:function (response) {
+            window.localStorage.removeItem('userid');
             showLogin();
         },
         error: function(jqXHR, textStatus, errorThrown) {
