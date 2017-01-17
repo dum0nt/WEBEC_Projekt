@@ -45,6 +45,7 @@ function register() {
     var email = $('#register-email').val();
     var address = $('#register-address').val();
     var zip = $('#register-zip').val();
+    var city = $('#register-city').val();
     var password1 = $('#register-password1').val();
     var password2 = $('#register-password2').val();
 
@@ -74,6 +75,10 @@ function register() {
         $('#register-zip').addClass('error');
         hasErrors = true;
     }
+    if (city === null || city === "") {
+        $('#register-city').addClass('error');
+        hasErrors = true;
+    }
     if (password1 === null || password1 === "" || password1.length < 8) {
         $('#register-password1').addClass('error');
         hasErrors = true;
@@ -97,6 +102,7 @@ function register() {
             email: email,
             address: address,
             zip: zip,
+            city: city,
             password: password1
         };
 
@@ -104,6 +110,7 @@ function register() {
             url:'/users',
             type:'POST',
             data: params,
+            dataType: 'json',
             success:function (response) {
                 showLogin();
             },

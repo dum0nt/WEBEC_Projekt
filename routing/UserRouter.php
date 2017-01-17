@@ -2,8 +2,8 @@
 
 $app->post('/users', function($request, $response) use ($userDao) {
     $jsonReq = $request->getParsedBody();
-    $userId = $userDao->createUser($jsonReq);
 
+    $userId = $userDao->createUser($jsonReq);
     if ($userId == false) {
         return $response->write('Bad request')->withStatus(400);
     }
@@ -44,13 +44,14 @@ $app->get('/users/{id}', function($request, $response, $args) use ($userDao) {
 
 $app->put('/users/{id}', function($request, $response, $args) use ($userDao) {
     $userId = intval($args['id']);
-    $jsonReq = $request->getParsedBody();
+    $params = $request->getParsedBody();
+
     if (!$userDao->exists($userId)) {
         return $response->write('User not found')->withStatus(404);
     }
+    $params['userId'] = $userId;
 
-    $jsonReq['userId'] = $userId;
-    if ($userDao->updateUserPassword($jsonReq)) {
+    if ($userDao->updateUserPassword($params)) {
         $user = $userDao->getUser($userId);
 
         $result = array();

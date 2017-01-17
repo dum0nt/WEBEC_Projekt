@@ -1,7 +1,5 @@
 <?php
 
-namespace dao;
-use PDO;
 require_once 'helper/DbConnection.php';
 use function database\getDBConnection as openDatabase;
 
@@ -40,11 +38,11 @@ class UserDAO
         $insertUser->bindParam(':passwordHash', $passwordHash);
         $insertUser->bindParam(':saltValue', $saltValue);
 
-        if (!$insertUser->execute()) {
-            throw new Exception("There appears to be a problem with the database connection");
+        if ($insertUser->execute()) {
+            return intval($db->lastInsertId());
+        } else {
+            return false;
         }
-
-        return intval($db->lastInsertId());
     }
 
     /**

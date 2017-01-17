@@ -1,7 +1,5 @@
 <?php
 
-namespace dao;
-use PDO;
 require_once 'helper/DbConnection.php';
 use function database\getDBConnection as openDatabase;
 

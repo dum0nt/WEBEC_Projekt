@@ -1,8 +1,8 @@
 <?php
 
 function fillInformation($reservations) {
-    $shipDao = new \dao\ShipDAO();
-    $userDao = new \dao\UserDAO();
+    $shipDao = new ShipDAO();
+    $userDao = new UserDAO();
 
     return array_map(function($reservation) use ($shipDao, $userDao) {
         $res = array();

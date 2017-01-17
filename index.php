@@ -23,11 +23,11 @@ require_once 'helper/ReservationDAO.php';
 require_once 'helper/ShipDAO.php';
 require_once 'helper/UserDAO.php';
 
-$berthDao = new \dao\BerthDAO();
-$berthTownDao = new \dao\BerthTownDAO();
-$resDao = new \dao\ReservationDAO();
-$shipDao = new \dao\ShipDAO();
-$userDao = new \dao\UserDAO();
+$berthDao = new BerthDAO();
+$berthTownDao = new BerthTownDAO();
+$resDao = new ReservationDAO();
+$shipDao = new ShipDAO();
+$userDao = new UserDAO();
 
 require_once 'routing/BerthRouter.php';
 require_once 'routing/BerthTownRouter.php';
