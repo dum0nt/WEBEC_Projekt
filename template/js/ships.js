@@ -45,8 +45,6 @@ function saveShip() {
     var berthtown = $('#ship-berthtown').val();
     var berthNumber = $('#ship-berth').val();
     var berthtownid = findIdToBerthTown(berthtown);
-    alert("BerthTownId"+berthtownid);
-    alert("BerthNumber"+berthNumber);
     var berths = $.ajax({
         url:"/berths",
         method:"GET",
@@ -56,10 +54,8 @@ function saveShip() {
     berths.forEach(function (berth){
         if(berth.BerthNumber == berthNumber && berth.BerthTownId == berthtownid) {
             TEMP_BERTH_ID = berth.BerthId;
-            alert("BerthId: "+TEMP_BERTH_ID);
         }
     });
-    alert("BerthId: "+TEMP_BERTH_ID);
     $.ajax({
        url:'/ships',
         type:'POST',
@@ -69,7 +65,7 @@ function saveShip() {
         error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown) }
     });
     loadShips();
-    loadBerths();
+    $('#ship-berth').html('');
 }
 
 function loadBerthTownNames() {
@@ -97,7 +93,7 @@ function loadBerths() {
 
     var berthtowns = $.ajax({
         url: '/berthtowns',
-        typ: 'GET',
+        type: 'GET',
         async: false,
         dataType: 'json',
     }).responseJSON;
