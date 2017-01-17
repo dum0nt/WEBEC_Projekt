@@ -26,7 +26,7 @@ function login() {
             type:'POST',
             data: params,
             success:function (response) {
-                window.localStorage.setItem('userid', response['userid']);
+                window.localStorage.setItem('userid', response.userid);
                 showCalendar();
             },
             error: function(jqXHR, textStatus, errorThrown) {

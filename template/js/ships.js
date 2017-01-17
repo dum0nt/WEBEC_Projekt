@@ -1,4 +1,4 @@
-var SHIPLIST_HEADER = '<tr><td colspan="4" style="padding:8px 0"><h1>Schiffsliste</h1></td></tr><tr><th>Schiffsname</th><th>Typ</th><th>Standort</th><th>Anlegeplatz</th></tr>'
+var SHIPLIST_HEADER = '<tr><td colspan="4" style="padding:8px 0"><h1>Schiffsliste</h1></td></tr><tr><th>Schiffsname</th><th>Typ</th><th>Standort</th><th>Anlegeplatz</th></tr>';
 var TEMP_BERTH_ID;
 var TEMP_BERTH_TOWN;
 var TEMP_BOAT_NAME;
@@ -8,7 +8,7 @@ var TEMP_BERTH_NUMBER;
 
 function loadShips(){
     var shiplist = $('.shiplist');
-    shiplist.clear;
+    shiplist.clear();
     shiplist.html(SHIPLIST_HEADER);
     $.ajax({
         url:"/ships",
@@ -32,9 +32,9 @@ function loadShips(){
                 td4.append(p);
                 tr.append(td1,td2,td3,td4);
                 shiplist.append(tr);
-            })
+            });
         },
-        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown) }
+        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown); }
     });
     loadBerthTownNames();
 }
@@ -62,7 +62,7 @@ function saveShip() {
         data:{shipName:shipname,shipType:shiptype,berthTown: berthtown,berthId:TEMP_BERTH_ID},
         dataTyp:'json',
         success:function (response) {},
-        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown) }
+        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown); }
     });
     loadShips();
     $('#ship-berth').html('');
@@ -82,9 +82,9 @@ function loadBerthTownNames() {
                 var option = new Option(berthtown.TownName, 'berthtown'+counter);
                 counter += 1;
                 $("#ship-berthtown").append(option);
-            })
+            });
         },
-        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown) }
+        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown); }
     });
 }
 function loadBerths() {
@@ -116,9 +116,9 @@ function loadBerths() {
                     option.text = berth.BerthNumber;
                     $("#ship-berth").append(option);
                 }
-            })
+            });
         },
-        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown) }
+        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown); }
     });
 }
 

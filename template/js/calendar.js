@@ -17,7 +17,7 @@ function loadDropdownContent() {
             var text = item.ShipName;
             select.append('<option value="' + value + '">' + text + '</option>');
             counter += 1;
-        })
+        });
     });
 }
 
@@ -79,7 +79,7 @@ function loadReservations() {
                 }
             });
         },
-        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown) }
+        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown); }
     });
 }
 
@@ -87,7 +87,7 @@ function data(url, successFunction) {
     $.ajax({
         url: url,
         dataType: 'json',
-        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown) },
+        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown); },
         success: successFunction
     });
 }
@@ -103,37 +103,37 @@ function loadWeatherData() {
         $('#calendar').fullCalendar( 'renderEvent', event,true);
 
         var tomorrow = new Date().setDate(today.getDate()+1);
-        var event={id:1,temp:city.list[1].temp.day+" °C",direction:city.list[1].deg, speed:city.list[1].speed,
+        event={id:1,temp:city.list[1].temp.day+" °C",direction:city.list[1].deg, speed:city.list[1].speed,
             textColor:"black",start:tomorrow,color:"transparent",allDay:true, icon:city.list[1].weather[0].icon};
         $('#calendar').fullCalendar('removeEvents',1);
         $('#calendar').fullCalendar( 'renderEvent', event,true);
 
         var thirdDay = new Date().setDate(today.getDate()+2);
-        var event={id:2,temp:city.list[2].temp.day+" °C",direction:city.list[2].deg, speed:city.list[2].speed,
+        event={id:2,temp:city.list[2].temp.day+" °C",direction:city.list[2].deg, speed:city.list[2].speed,
             textColor:"black",start:thirdDay,color:"transparent",allDay:true, icon:city.list[2].weather[0].icon};
         $('#calendar').fullCalendar('removeEvents',2);
         $('#calendar').fullCalendar( 'renderEvent', event,true);
 
         var fourthDay = new Date().setDate(today.getDate()+3);
-        var event={id:3,temp:city.list[3].temp.day+" °C",direction:city.list[3].deg, speed:city.list[3].speed,
+        event={id:3,temp:city.list[3].temp.day+" °C",direction:city.list[3].deg, speed:city.list[3].speed,
             textColor:"black",start:fourthDay,color:"transparent",allDay:true, icon:city.list[3].weather[0].icon};
         $('#calendar').fullCalendar('removeEvents',3);
         $('#calendar').fullCalendar( 'renderEvent', event,true);
 
         var fifthDay = new Date().setDate(today.getDate()+4);
-        var event={id:4,temp:city.list[4].temp.day+" °C",direction:city.list[4].deg, speed:city.list[4].speed,
+        event={id:4,temp:city.list[4].temp.day+" °C",direction:city.list[4].deg, speed:city.list[4].speed,
             textColor:"black",start:fifthDay,color:"transparent",allDay:true, icon:city.list[4].weather[0].icon};
         $('#calendar').fullCalendar('removeEvents',4);
         $('#calendar').fullCalendar( 'renderEvent', event,true);
 
         var sixthDay = new Date().setDate(today.getDate()+5);
-        var event={id:5,temp:city.list[5].temp.day+" °C",direction:city.list[5].deg, speed:city.list[5].speed,
+        event={id:5,temp:city.list[5].temp.day+" °C",direction:city.list[5].deg, speed:city.list[5].speed,
             textColor:"black",start:sixthDay,color:"transparent",allDay:true, icon:city.list[5].weather[0].icon};
         $('#calendar').fullCalendar('removeEvents',5);
         $('#calendar').fullCalendar( 'renderEvent', event,true);
 
         var seventhDay = new Date().setDate(today.getDate()+6);
-        var event={id:6,temp:city.list[6].temp.day+" °C",direction:city.list[6].deg, speed:city.list[6].speed,
+        event={id:6,temp:city.list[6].temp.day+" °C",direction:city.list[6].deg, speed:city.list[6].speed,
             textColor:"black",start:seventhDay,color:"transparent",allDay:true, icon:city.list[6].weather[0].icon};
         $('#calendar').fullCalendar('removeEvents',6);
         $('#calendar').fullCalendar( 'renderEvent', event,true);
@@ -194,8 +194,8 @@ function saveReservation() {
             loadSelectedShipCalendar();
             showCalendar();
         },
-        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown) }
-    })
+        error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown); }
+    });
 }
 
 

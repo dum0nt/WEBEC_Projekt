@@ -3,14 +3,11 @@ var REGISTER_CONTENT = '#register-content';
 var ACCOUNT_CONTENT = '#account-content';
 var ACCOUNT_NAVLINK = '#account-navlink';
 var CALENDAR_CONTENT = '#calendar-content';
-var CALENDAR_DIV = '#calendar';
 var CALENDAR_NAVLINK = '#calendar-navlink';
 var TIMETABLE_CONTENT = '#timetable-content';
 var RESERVATION_CONTENT = '#reservation-content';
 var SHIP_CONTENT = '#ship-content';
 var SHIP_NAVLINK = '#ship-navlink';
-var LAKE_LATITUDE = 47.282096;
-var LAKE_LONGITUDE = 8.215788;
 
 function showLogin() {
     $('#login-logo').show();

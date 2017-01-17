@@ -22,7 +22,7 @@ function loadUserData() {
             CITY = user.city;
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR, textStatus, errorThrown)
+            console.error(jqXHR, textStatus, errorThrown);
         }
     }).done(function () {
        $('#account-username').attr('placeholder',USER_NAME);
@@ -65,7 +65,7 @@ function updateNewPassword(){
             data: {oldPassword: oldPw, newPassword: newPw1},
             dataType: 'json',
             success: function (user) {
-                alert(user.firstName + " has been updated!")
+                alert(user.firstName + " has been updated!");
                 showAccount();
             },
             error: function (jqXHR, textStatus, errorThrown) {
