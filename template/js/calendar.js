@@ -6,6 +6,9 @@ var BERTH_TOWN;
 var BERTH_TOWN_NAME;
 var CALENDAR;
 
+/**
+ * loads all available ships and adds it to the calendar-dropdown
+ */
 function loadDropdownContent() {
     var select = $('#calendar_dropdown');
     select.empty();
@@ -21,6 +24,9 @@ function loadDropdownContent() {
     });
 }
 
+/**
+ * configures and loads the fullCalendar
+ */
 function loadCalendar(){
     CALENDAR = $('#calendar');
     CALENDAR.fullCalendar({
@@ -48,6 +54,9 @@ function loadCalendar(){
     });
 }
 
+/**
+ * loads the calendar for the selected ship
+ */
 function loadSelectedShipCalendar() {
     var select = document.getElementById('calendar_dropdown');
     var boatName = select.options[select.selectedIndex].text;
@@ -60,6 +69,9 @@ function loadSelectedShipCalendar() {
     }
 }
 
+/**
+ * loads the reservations to the selected ship
+ */
 function loadReservations() {
     $('#calendar').fullCalendar('removeEvents');
     $.ajax({
@@ -83,6 +95,9 @@ function loadReservations() {
     });
 }
 
+/**
+ * helper medhod for api requests
+ */
 function data(url, successFunction) {
     $.ajax({
         url: url,
@@ -92,6 +107,9 @@ function data(url, successFunction) {
     });
 }
 
+/**
+ * loads the weather data to the corresponding ship
+ */
 function loadWeatherData() {
     var cityName = findCityName(BOAT_NAME);
 
@@ -140,6 +158,10 @@ function loadWeatherData() {
     });
 }
 
+/**
+ * finds the townname of a specific ship
+ * @return returns the townName
+ */
 function findCityName(){
     var ships = $.ajax({
         url: '/ships',
@@ -170,6 +192,9 @@ function findCityName(){
     return BERTH_TOWN_NAME;
 }
 
+/**
+ * saves a reservation in the reservations table
+ */
 function saveReservation() {
     var date = $('#reservation-date').val();
     var from = $('#reservation-from').val();
@@ -186,10 +211,11 @@ function saveReservation() {
 
     var startTime = date+" "+from;
     var endTime = date+" "+to;
+    var userId  = localStorage.userid;
     $.ajax({
         url:'/reservations',
         type:'POST',
-        data:{userId:2,startTime:startTime,endTime:endTime,shipId:BOAT_ID},                       /* XXX UserId speichern XXXX */
+        data:{userId:userId,startTime:startTime,endTime:endTime,shipId:BOAT_ID},
         success:function () {
             loadSelectedShipCalendar();
             showCalendar();
@@ -198,7 +224,10 @@ function saveReservation() {
     });
 }
 
-
+/**
+ * translates the wind direction value into a readable string
+ * @param direction the value returned by the openweathermap api
+ */
 function evaluateWindDirection(direction) {
     var deg = parseFloat(direction);
     switch(true){

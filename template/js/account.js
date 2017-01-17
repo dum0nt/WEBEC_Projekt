@@ -6,6 +6,9 @@ var ADDRESS;
 var PLZ;
 var CITY;
 
+/**
+ * loads the data to a user into the change-password form
+ */
 function loadUserData() {
     var userId = localStorage.userid;
    $.ajax({
@@ -35,6 +38,9 @@ function loadUserData() {
    });
 }
 
+/**
+ * updates the new password in the database
+ */
 function updateNewPassword(){
     var userId = localStorage.userid;
     var oldPw = $('#account-old-password').val();

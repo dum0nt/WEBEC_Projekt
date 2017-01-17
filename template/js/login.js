@@ -1,3 +1,7 @@
+/**
+ * checks if the password is correct or not
+ * @return returns the townName
+ */
 function login() {
     $('input').removeClass('error');
     var username = $('#login-username').val();
@@ -37,6 +41,9 @@ function login() {
     }
 }
 
+/**
+ * evaluates the password and registers a new user in the database
+ */
 function register() {
     $('input').removeClass('error');
     var username = $('#register-username').val();
@@ -121,6 +128,9 @@ function register() {
     }
 }
 
+/**
+ * removes authentification rights and logs out user
+ */
 function logout() {
     $.ajax({
         url:'/logout',

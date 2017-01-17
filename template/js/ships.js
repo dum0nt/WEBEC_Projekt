@@ -6,6 +6,9 @@ var TEMP_BERTH_TOWN_NAME;
 var TEMP_BERTH_TOWN_ID;
 var TEMP_BERTH_NUMBER;
 
+/**
+ * loads the ship table with the available ships
+ */
 function loadShips(){
     var shiplist = $('.shiplist');
     shiplist.clear();
@@ -39,6 +42,9 @@ function loadShips(){
     loadBerthTownNames();
 }
 
+/**
+ * saves a new ship in the database
+ */
 function saveShip() {
     var shipname = $('#ship-name').val();
     var shiptype = $('#ship-type').val();
@@ -68,6 +74,9 @@ function saveShip() {
     $('#ship-berth').html('');
 }
 
+/**
+ * loads the berthTownNames for the dropdown
+ */
 function loadBerthTownNames() {
     $('#ship-berthtown').empty();
     var response = $.ajax({
@@ -87,6 +96,10 @@ function loadBerthTownNames() {
         error: function(jqXHR, textStatus, errorThrown) { console.error(jqXHR, textStatus, errorThrown); }
     });
 }
+
+/**
+ * loads the berths depending on the selected berthtown
+ */
 function loadBerths() {
     var select = document.getElementById('ship-berthtown');
     TEMP_BERTH_TOWN_NAME = select.options[select.selectedIndex].text;
@@ -122,6 +135,11 @@ function loadBerths() {
     });
 }
 
+/**
+ * finds the berthNumber to the corresponding berthId
+ * @param berthId the id of a specific berth
+ * @return returns the number of the berth
+ */
 function findBerthNumber(berthId) {
     TEMP_BERTH_ID = berthId;
     var berths = $.ajax({
@@ -135,6 +153,11 @@ function findBerthNumber(berthId) {
     return TEMP_BERTH_NUMBER;
 }
 
+/**
+ * finds the berthTownName of a specific ship
+ * @param boatName the name of a ship
+ * @return returns the berthTownName
+ */
 function findBerthTownName(boatName){
     TEMP_BOAT_NAME = boatName;
 
@@ -168,6 +191,10 @@ function findBerthTownName(boatName){
     return TEMP_BERTH_TOWN_NAME;
 }
 
+/**
+ * finds the id of a berthtown
+ * @return returns id of the berthtown
+ */
 function findIdToBerthTown(BerthTown){
     var berthtowns = $.ajax({
         url: '/berthtowns',
